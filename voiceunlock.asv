@@ -1,0 +1,31 @@
+close all; clear all; clc
+    
+    recobj = audiorecorder;
+    disp('Please Speak the Password');
+    recordblocking(recobj,3);
+    disp('You have spoken');
+    play(recobj);
+    
+    
+
+
+   % fprintf('Enter the name of the recording');
+   % chr1=input();
+   % ch1='.wav';
+   % inp=strcat(chr1,ch1);
+    
+    
+    inpfile1=normalize(recobj);
+    inpfile2=normalize('47.wav');
+    
+    m = datasetcreation(inpfile1,inpfile2);
+    feat = mapFeature(m);
+    theta =[-0.422676652350110;0.0963869335481751;-0.00210807385072282;1.51210580128127e-05];
+    predicti=predict(theta,feat(:,1)');
+    if predicti == 1
+        fprintf('Password match!\n');
+    else
+        fprintf('Please try again!\n');
+    end
+
+    
